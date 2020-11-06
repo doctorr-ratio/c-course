@@ -107,6 +107,8 @@ while(i<10) {
 ```
 Этот цикл выведет квадраты первых 100 натуральных чисел. 
 
+#### Вложенные циклы
+
 Кроме того, циклы могут быть вложенными, то есть в теле одного цикла может находиться еще один:
 ```
 int i = 0, j = 0;
@@ -125,7 +127,7 @@ while(i<9) {
 ## Дополнительная информация
 
 + [Условия и ветвление](https://learnc.info/c/branches.html)
-+ [Логические операторы (И, ИЛИ, НЕ](https://learnc.info/c/logic_operators.html)
++ [Логические операторы (И, ИЛИ, НЕ)](https://learnc.info/c/logic_operators.html)
 + [Циклы](https://learnc.info/c/loop.html)
 + [Форматированный вывод](https://learnc.info/c/formatted_input_output.html)
 

@@ -113,4 +113,4 @@ is_bad = 0; // присвоено значение "ложь", 0
 
 #### 3*
 + Вывести символ % с помощью `printf()`;
-+ Что вернет `sizeof("hello darkness my old friend);`?
++ Что вернет `sizeof("hello darkness my old friend");`?

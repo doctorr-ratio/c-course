@@ -29,6 +29,7 @@ void deleteList(Node **Head) {
     while ((*Head)->head != NULL) {
         pop(Head);
     }
+    free(*Head);
 }
 
 void insert(Node **Head, unsigned n, int val) {
@@ -39,7 +40,7 @@ void insert(Node **Head, unsigned n, int val) {
         int counter = 0;
         Node *tmp = *Head;
         Node *new = (Node*)malloc(sizeof(Node));
-        if (tmp == NULL) {
+        if (new == NULL) {
             exit(1);
         }
         new->value = val;
@@ -87,16 +88,28 @@ int get(Node **Head, unsigned n) {
     return tmp->value;
 }
 
+void printList (Node *Head) {
+    while (Head != NULL) {
+        printf("lst: %d\n", Head->value);
+        Head = Head->head;
+    }
+}
+
 
 void main() {
     Node *pHead = (Node*)malloc(sizeof(Node));
     pHead->value = 42;
-    printf("%d\n", push(&pHead, 12));
-    printf("%d\n", push(&pHead, 13));
-    printf("%d\n", push(&pHead, 14));
-    printf("%d\n", push(&pHead, 15));
+    printf("push status: %d\n", push(&pHead, 12));
+    printf("push status: %d\n", push(&pHead, 13));
+    printf("push status: %d\n", push(&pHead, 14));
+    printf("push status: %d\n", push(&pHead, 15));
+    printList(pHead);
     insert(&pHead, 2, 120);
-    printf("%d\n", delete(&pHead, 2));
-    printf("%d\n", get(&pHead, 2));
+    printf("after insert\n");
+    printList(pHead);
+    printf("del: %d\n", delete(&pHead, 2));
+    printf("after delete\n");
+    printList(pHead);
+    printf("get [2]: %d\n", get(&pHead, 2));
     deleteList(&pHead);
 }

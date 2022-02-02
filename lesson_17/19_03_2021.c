@@ -19,7 +19,7 @@ DLL* DLL_create() {
         exit(1);
     }
     tmp->size = 0;
-    tmp->head = tmp->tail = NULL;
+    tmp->head = (tmp->tail = NULL);
     return tmp;
 }
 
@@ -65,9 +65,10 @@ int popFront(DLL* list) {
         list->head->prev = NULL;
         free(tmp);
         return retval;
+    } else {
+        printf("Empty list!\n");
+        return 0;
     }
-    printf("Empty list!\n");
-    return 0;
 }
 
 void pushBack(DLL* list, int val) {
@@ -91,20 +92,21 @@ void pushBack(DLL* list, int val) {
 
 int popBack(DLL* list) {
     if (list->size) {
-        int retval = list->head->value;
-        Node* tmp = list->head;
-        list->head = list->head->next;
+        int retval = list->tail->value;
+        Node* tmp = list->tail;
+        list->tail = list->tail->prev;
         list->size--;
-        list->head->prev = NULL;
+        list->tail->next = NULL;
         free(tmp);
         return retval;
+    } else {
+        printf("Empty list!\n");
+        return 0;
     }
-    printf("Empty list!\n");
-    return 0;
 }
 
 Node* get(const DLL* list, unsigned n) {
-    if(n >= list->size) {
+    if(n > list->size) {
         printf("Invalid index!\n");
         return NULL;
     } else {
@@ -128,13 +130,52 @@ Node* get(const DLL* list, unsigned n) {
     }
 }
 
+int delete(DLL* list, unsigned n) {
+    int retval;
+    if(n > list->size) {
+        printf("Invalid index!\n");
+        return 0;
+    } else if (n == 0) {
+        retval = popFront(list);
+        return retval;
+    } else if (n == list->size - 1) {
+        retval = popBack(list);
+        return retval;
+    } else {
+        Node* tmp = get(list, n);
+        retval = tmp->value;
+        tmp->next->prev = tmp->prev;
+        tmp->prev->next = tmp->next;
+        free(tmp);
+        return retval;
+    }
+}
+
+void printList (const DLL* list) {
+    Node* tmp = list->head;
+    printf("list print begin\n");
+    while(tmp != NULL) {
+        printf("%d\n", tmp->value);
+        tmp = tmp->next;
+    }
+    printf("list print end\n");
+}
 
 
 void main() {
     DLL* List = DLL_create();
     pushFront(List, 19);
+    pushFront(List, 567);
+    pushFront(List, 5);
+    pushFront(List, 356);
+    pushFront(List, 345);
+    pushFront(List, 99);
+    pushFront(List, 56);
+    printList(List);
     printf("%d\n", get(List, 0)->value);
     pushFront(List, 2103);
-    printf("%d\n", get(List, 0)->value);
+    printf("%d\n", get(List, 7)->value);
     printf("%d\n", popFront(List));
+    printList(List);
+    DLL_delete(&List);
 }
